@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Ant Ant build script that demonstrates how to test to see
+  which operating system (computer platform) the Ant build
+  script is currently running on. Currently tests for Mac OS X,
+  Windows, and Unix systems.
+  Created by Alvin Alexander, DevDaily.com
+  Improved by wsilva - @_wsilva
+-->
+
+<project default="OS-TEST" name="Ant Operating System Test" >
+
+  <!-- set the operating system test properties -->
+  <condition property="isMac">
+    <os family="mac" />
+  </condition>
+
+  <condition property="isWindows">
+    <os family="windows" />
+  </condition>
+
+  <condition property="isUnix">
+    <os family="unix" />
+  </condition>
+
+  <condition property="isLinux">
+    <and>
+      <os family="unix"/>
+      <not>
+        <os family="mac"/>
+      </not>
+    </and>
+  </condition>
+
+  <!-- define the operating system specific targets -->
+  <target name="doMac" if="isMac">
+    <echo message="Came into the Mac target" />
+    <!-- do whatever you want to do here for Mac systems -->
+  </target>
+
+  <target name="doWindows" if="isWindows">
+    <echo message="Came into the Windows target" />
+  </target>
+
+  <target name="doUnix" if="isUnix">
+    <echo message="Came into the Unix target" />
+  </target>
+
+  <target name="doLinux" if="isLinux">
+    <echo message="Came into the Linux target" />
+  </target>
+
+  <!-- define our main/default target -->
+  <target name="OS-TEST" depends="doMac, doWindows, doUnix, doLinux">
+    <echo message="Running OS-TEST target" />
+  </target>
+
+</project>
